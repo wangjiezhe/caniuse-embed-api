@@ -1,5 +1,5 @@
 const bcd = require('@mdn/browser-compat-data');
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const formatMDNTitle = require('./format-mdn-feature-title');
 
