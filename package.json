@@ -3,23 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "engines": {
-    "node": "8.11.3"
-  },
   "scripts": {
-    "test": "node test.js",
-    "start": "node main.js",
-    "screenshot-all": "node modules/screenshot-all.js"
+    "start": "node main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cloudinary": "^1.13.2",
-    "express": "^4.16.4",
-    "gm": "^1.23.1",
-    "mdn-browser-compat-data": "^1.0.20",
-    "node-fetch": "^2.6.0",
-    "puppeteer": "^1.10.0"
+    "@mdn/browser-compat-data": "^7.1.14",
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
   }
 }
