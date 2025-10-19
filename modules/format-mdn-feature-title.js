@@ -53,6 +53,17 @@ export default async (path) => {
 
             break;
 
+        case 'manifests':
+            if (path.length == 3) {
+                title = `PWA Manifest: ${path[2]}`
+            }
+
+            else if (path.length == 4) {
+                title = `PWA Manifest: ${path[2]}:${path[3]}`
+            }
+
+            break;
+
         case 'mathml':
             if (path.length !== 3) break;
 

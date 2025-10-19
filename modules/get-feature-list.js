@@ -37,18 +37,16 @@ const getMDNData = async () => {
         return null;
     };
 
+    const excludedCategories = ['__meta', 'browsers', 'webdriver', 'webassembly'];
+
     Object.keys(bcd).forEach((category) => {
-        if (category === "browsers") return;
+        if (excludedCategories.includes(category)) return;
         traverseObject(bcd[category], [category]);
     });
 
     const features = [];
-    const excludedCategories = ['webdriver', 'xpath', 'xslt'];
 
     finalPaths.forEach(async (path) => {
-
-        if (excludedCategories.includes(path[0])) return;
-
         const feature = {
             id: 'mdn-' + path.join('__'), // @separator
             title: await formatMDNTitle(path),
