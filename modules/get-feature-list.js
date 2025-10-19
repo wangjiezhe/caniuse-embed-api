@@ -1,7 +1,7 @@
-const bcd = require('@mdn/browser-compat-data');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+import bcd from '@mdn/browser-compat-data' with { type: 'json' };
+import fetch from 'node-fetch';
 
-const formatMDNTitle = require('./format-mdn-feature-title');
+import formatMDNTitle from './format-mdn-feature-title.js';
 
 const sort_by = (field, primer) => {
     // http://stackoverflow.com/a/979325
@@ -95,8 +95,7 @@ const getCanIUseData = async () => {
         });
 };
 
-
-module.exports = async () => {
+export default async (path) => {
 
     const mdn = await getMDNData();
     const ciu = await getCanIUseData();

@@ -1,5 +1,5 @@
 
-module.exports = async (path) => {
+export default async (path) => {
 
     let title = null;
 

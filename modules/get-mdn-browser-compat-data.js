@@ -1,7 +1,7 @@
-const bcd = require('@mdn/browser-compat-data');
-const formatMDNTitle = require('./format-mdn-feature-title');
+import bcd from '@mdn/browser-compat-data' with { type: 'json' };
+import formatMDNTitle from './format-mdn-feature-title.js';
 
-module.exports = async (feature) => {
+export default async (feature) => {
     if (!feature) return bcd;
 
     const path = feature.split('mdn-')[1].split('__');

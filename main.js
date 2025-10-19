@@ -4,12 +4,12 @@
 
 ************************************** */
 
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
 const app = express();
 
-const getFeatureList = require("./modules/get-feature-list");
-const getMDNBrowserCompatData = require("./modules/get-mdn-browser-compat-data");
+import getFeatureList from "./modules/get-feature-list.js";
+import getMDNBrowserCompatData from "./modules/get-mdn-browser-compat-data.js";
 
 app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
@@ -41,6 +41,7 @@ app.post("/mdn-browser-compat-data", async (req, res) => {
     }
 });
 
-const server = app.listen(app.get('port'), function () {
-    console.log("app running on port.", server.address().port);
+const server = app.listen(app.get('port'));
+server.on('listening', () => {
+    console.log("app running on port", server.address().port);
 });
