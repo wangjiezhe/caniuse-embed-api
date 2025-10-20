@@ -76,8 +76,7 @@ export default async (path) => {
 
             if (path[1] === 'elements') title = `SVG Element: ${path[2]}`;
 
-            if (path[1] === 'attributes' && path.length === 2) title = `SVG Attribute: ${path[2]}`;
-            if (path[1] === 'attributes' && path.length === 4) title = `SVG Attribute: ${path[3]}`;
+            if (path[1] === 'global_attributes' && path.length === 2) title = `SVG Attribute: ${path[2]}`;
 
             break;
 
@@ -86,7 +85,7 @@ export default async (path) => {
 
             if (path[1] === 'manifest' && path.length === 3) title = `WebExtension Manifest Property: ${path[2]}`;
 
-            if (path[1] === 'api'  && path.length === 4) title = `WebExtensions API: ${path[2]} ${path[3]}`;
+            if (path[1] === 'api'  && path.length === 3) title = `WebExtensions API: ${path[2]}`;
 
             break;
     }
