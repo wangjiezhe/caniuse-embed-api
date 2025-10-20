@@ -12,6 +12,7 @@
   "dependencies": {
     "@mdn/browser-compat-data": "^7.1.14",
     "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "node-fetch": "^3.3.2"
   }

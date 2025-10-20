@@ -6,6 +6,7 @@
 
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 const app = express();
 
 import getFeatureList from "./modules/get-feature-list.js";
@@ -15,11 +16,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors())
 
 app.get("/", (req, res) => {
     res.status(200).send("Welcome to the CanIUse Embed API!");
