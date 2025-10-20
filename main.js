@@ -4,6 +4,7 @@
 
 ************************************** */
 
+import { httpServerHandler } from "cloudflare:node";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -42,3 +43,5 @@ const server = app.listen(app.get('port'));
 server.on('listening', () => {
     console.log("app running on port", server.address().port);
 });
+
+export default httpServerHandler({ port: app.get('port') });

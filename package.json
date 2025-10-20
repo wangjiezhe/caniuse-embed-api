@@ -5,7 +5,10 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node main.js"
+    "cf-typegen": "wrangler types",
+    "start": "wrangler dev",
+    "dev": "wrangler dev",
+    "build": "wrangler build"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +17,9 @@
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "wrangler": "^4.43.0"
   }
 }

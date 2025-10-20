@@ -1,0 +1,12 @@
+name = "caniuse-embed-api"
+main = "main.js"
+compatibility_date = "2025-10-08"
+compatibility_flags = ["nodejs_compat"]
+upload_source_maps = true
+assets = { directory = "./static/" }
+
+[observability]
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
