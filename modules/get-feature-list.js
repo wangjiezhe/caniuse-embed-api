@@ -1,5 +1,4 @@
 import bcd from '@mdn/browser-compat-data' with { type: 'json' };
-import fetch from 'node-fetch';
 
 import formatMDNTitle from './format-mdn-feature-title.js';
 
@@ -68,29 +67,26 @@ const getCanIUseData = async () => {
         }
     };
 
-    return fetch(url, options)
-        .then((res) => res.json())
-        .then((res) => {
+    const response = await fetch(url, options);
+    const res = await response.json();
 
-            const features = [];
+    const features = [];
 
-            for (let key in res.data) {
-                if (res.data.hasOwnProperty(key)) {
+    for (let key in res.data) {
+        if (res.data.hasOwnProperty(key)) {
+            const feature = {
+                id: key,
+                title: res.data[key].title,
+                dataSource: 'caniuse'
+            };
 
-                    const feature = {
-                        id: key,
-                        title: res.data[key].title,
-                        dataSource: 'caniuse'
-                    };
+            feature.title = capitalizeFirstLetter(feature.title);
 
-                    feature.title = capitalizeFirstLetter(feature.title);
+            features.push(feature);
+        }
+    }
 
-                    features.push(feature);
-                }
-            }
-
-            return features;
-        });
+    return features;
 };
 
 export default async (path) => {
@@ -103,6 +99,3 @@ export default async (path) => {
 
     return features;
 };
-
-
-
