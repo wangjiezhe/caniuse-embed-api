@@ -7,12 +7,18 @@ export default async (feature) => {
     const path = feature.split('mdn-')[1].split('__');
 
     let obj = bcd;
+    let parent = null;
     for (let i = 0; i < path.length; i++) {
+        parent = obj;
         obj = obj[ path[i] ];
     }
 
     const compat = obj['__compat'];
     compat.title = await formatMDNTitle(path);
+
+    if (!compat.mdn_url && parent?.__compat?.mdn_url) {
+        compat.mdn_url = parent.__compat.mdn_url + `#${path[path.length - 1]}`
+    }
 
     return compat || bcd;
 };
