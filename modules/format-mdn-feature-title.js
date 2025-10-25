@@ -6,90 +6,133 @@ export default async (path) => {
     switch (path[0]) {
 
         case 'api':
-            if (path.length !== 2) break;
-
-            title = `${path[1]} API`;
-
+            if (path.length === 1) {
+                title = "API";
+            } else if (path.length === 2) {
+                title = `${path[1]} API`;
+            } else if (path.length > 2) {
+                title = `${path[1]} API: ${path.slice(2).join(' ')}`;
+            }
             break;
 
         case 'css':
-
+            const cssCategory = path[1];
             if (path.length === 3) {
-                if (path[1] === 'at-rules') title = `CSS at-rule: ${path[2]}`;
-                if (path[1] === 'properties') title = `CSS Property: ${path[2]}`;
-                if (path[1] === 'selectors') title = `CSS Selector: ${path[2]}`;
-                if (path[1] === 'types') title = `CSS Data Type: ${path[2]}`;
+                const name = path[2];
+                if (cssCategory === "at-rules") {
+                    title = `CSS at-rule: @${name}`;
+                } else if (cssCategory === "properties") {
+                    title = `CSS Property: ${name}`;
+                } else if (cssCategory === "selectors") {
+                    title = `CSS Selector: :${name}`;
+                } else if (cssCategory === "types") {
+                    title = `CSS Data Type: ${name}`;
+                }
+            } else if (path.length > 3) {
+                const rest = path.slice(2);
+                if (cssCategory === "at-rules") {
+                    title = `CSS at-rule: @${rest.join(' ')}`;
+                } else if (cssCategory === "properties" && rest.length > 0) {
+                    title = `CSS Property: ${rest[0]}:${rest.slice(1).join(' ')}`;
+                } else if (cssCategory === "selectors") {
+                    title = `CSS Selector: :${rest.join(' ')}`;
+                } else if (cssCategory === "types") {
+                    title = `CSS Data Type: ${rest.join(' ')}`;
+                }
             }
-
-            else if (path.length === 4 && path[1] === 'properties') {
-                title = `CSS Property: ${path[2]}:${path[3]}`;
-            }
-
             break;
 
         case 'html':
-            if (path.length !== 3 && path.length !== 4) break;
-
-            if (path[1] === 'manifest') title = `Web App Manifest Property: ${path[2]}`;
-            if (path[1] === 'global_attributes') title = `Global HTML Attribute: ${path[2]}`;
-
-            if (path[1] === 'elements' && path[2] !== 'input') title = `HTML Element: ${path[2]}`;
-            if (path[1] === 'elements' && path[2] === 'input') title = `HTML Element: ${path[3]}`;
-
+            const htmlCategory = path[1];
+            const htmlName = path[2];
+            if (htmlCategory === "global_attributes") {
+                if (path.length === 3) {
+                    title = `Global HTML Attribute: ${htmlName}`;
+                } else if (path.length > 3) {
+                    title = `Global HTML Attribute: ${htmlName}:${path.slice(3).join(' ')}`;
+                }
+            } else if (htmlCategory === "elements") {
+                if (path.length === 3) {
+                    title = `HTML Element: ${htmlName}`;
+                } else if (path.length > 3) {
+                    title = `HTML Element: ${htmlName}:${path.slice(3).join(' ')}`;
+                }
+            }
             break;
 
         case 'http':
-            if (path.length !== 3) break;
-
-            if (path[1] === 'methods') title = `HTTP Method: ${path[2]}`;
-            if (path[1] === 'status') title = `HTTP Status: ${path[2]}`;
-            if (path[1] === 'headers') title = `HTTP Header: ${path[2]}`;
-
+            const httpCategory = path[1];
+            const httpRest = path.slice(2);
+            if (httpCategory === "methods") {
+                title = `HTTP Method: ${httpRest.join(' ')}`;
+            } else if (httpCategory === "status") {
+                title = `HTTP Status: ${httpRest.join(' ')}`;
+            } else if (httpCategory === "headers") {
+                title = `HTTP Header: ${httpRest.join(' ')}`;
+            }
             break;
 
         case 'javascript':
-
-            title = `Javascript ${ path[ path.length - 1 ] }`;
-
+            title = `Javascript ${path[1]}: ${path.slice(2).join(' ')}`;
             break;
 
         case 'manifests':
-            if (path.length == 3) {
-                title = `PWA Manifest: ${path[2]}`
+            if (path[1] === "webapp") {
+                const manifestName = path[2];
+                if (path.length === 3) {
+                    title = `Web App Manifest: ${manifestName}`;
+                } else if (path.length > 3) {
+                    title = `Web App Manifest: ${manifestName}:${path.slice(3).join(' ')}`;
+                }
             }
-
-            else if (path.length == 4) {
-                title = `PWA Manifest: ${path[2]}:${path[3]}`
-            }
-
             break;
 
         case 'mathml':
-            if (path.length !== 3) break;
-
-            if (path[1] === 'elements') title = `MathML Element: ${path[2]}`;
-
+            const mathmlCategory = path[1];
+            const mathmlRest = path.slice(2);
+            if (mathmlCategory === "elements") {
+                title = `MathML Element: ${mathmlRest.join(' ')}`;
+            } else if (mathmlCategory === "global_attributes") {
+                title = `MathML Global attributes: ${mathmlRest.join(' ')}`
+            } else if (mathmlCategory === "attribute_values") {
+                title = `MathML Attribute values: ${mathmlRest.join(' ')}`
+            }
             break;
 
         case 'svg':
-            if (path.length !== 3 && path.length !== 4) break;
-
-            if (path[1] === 'elements' && path.length === 3) title = `SVG Element: ${path[2]}`;
-            if (path[1] === 'elements' && path.length === 4) title = `SVG Element: ${path[2]}:${path[3]}`;
-
-            if (path[1] === 'global_attributes' && path.length === 3) title = `SVG Attribute: ${path[2]}`;
-            if (path[1] === 'global_attributes' && path.length === 4) title = `SVG Attribute: ${path[2]}:${path[3]}`;
-
+            const svgCategory = path[1];
+            const svgName = path[2];
+            if (svgCategory === "elements") {
+                if (path.length === 3) {
+                    title = `SVG Element: ${svgName}`;
+                } else if (path.length > 3) {
+                    title = `SVG Element: ${svgName}:${path.slice(3).join(' ')}`;
+                }
+            } else if (svgCategory === "global_attributes") {
+                if (path.length === 3) {
+                    title = `SVG Attribute: ${svgName}`;
+                } else if (path.length > 3) {
+                    title = `SVG Attribute: ${svgName}:${path.slice(3).join(' ')}`;
+                }
+            }
             break;
 
         case 'webextensions':
-            if (path.length !== 3 && path.length !== 4) break;
-
-            if (path[1] === 'manifest' && path.length === 3) title = `WebExtension Manifest Property: ${path[2]}`;
-
-            if (path[1] === 'api'  && path.length === 3) title = `WebExtensions API: ${path[2]}`;
-            if (path[1] === 'api'  && path.length === 4) title = `WebExtensions API: ${path[2]}.${path[3]}`;
-
+            const webextCategory = path[1];
+            const webextRest = path.slice(2);
+            if (webextCategory === "manifest") {
+                title = `WebExtension Manifest Property: ${webextRest.join(' ')}`;
+            } else if (webextCategory === "api") {
+                if (webextRest.length === 0) {
+                    title = "WebExtensions API";
+                } else if (webextRest.length === 1) {
+                    title = `WebExtensions API: ${webextRest[0]}`;
+                } else if (webextRest.length > 1) {
+                    title = `WebExtensions API: ${webextRest[0]}.${webextRest.slice(1).join(' ')}`;
+                }
+            } else if (webextCategory === "match_patterns") {
+                title = `WebExtensions Match patterns: ${webextRest.join(' ')}`;
+            }
             break;
     }
 
