@@ -20,19 +20,19 @@ const getMDNData = async () => {
     const finalPaths = [];
 
     const traverseObject = (obj, objPath) => {
-        for (let key in obj) {
-            if (obj.hasOwnProperty(key)) {
-
-                const newPath = [...objPath, key];
-
-                if ( obj[key]['__compat'] ) {
-                    finalPaths.push(newPath);
-                } else {
+        if (typeof obj !== 'object' || obj === null) {
+            return;
+        }
+        Object.keys(obj).forEach(key => {
+            const newPath = [...objPath, key];
+            if (key.includes('__compat')) {
+                finalPaths.push(objPath);
+            } else {
+                if (typeof obj[key] === 'object' && obj[key] !== null) {
                     traverseObject(obj[key], newPath);
                 }
-
             }
-        }
+        });
         return null;
     };
 
